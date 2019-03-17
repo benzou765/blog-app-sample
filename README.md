@@ -58,6 +58,9 @@ $ docker rmi `docker images -q`
 
 ## 参考サイト
 * dockerのイメージ作りで参考にしたサイト  
-https://qiita.com/bzy/items/f251d47cba836a3a92df
+https://qiita.com/bzy/items/f251d47cba836a3a92df  
 * laravelのブログ作成で参考にしたサイト  
-https://qiita.com/yumgoo17/items/e40e02b3fc3275bd7f23
+https://qiita.com/yumgoo17/items/e40e02b3fc3275bd7f23  
+* mysqlの設定で参考にしたサイト  
+https://qiita.com/deco/items/bfa125ae45c16811536a  
+各種公式サイト  
