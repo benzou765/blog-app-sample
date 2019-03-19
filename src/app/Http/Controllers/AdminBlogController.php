@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
 
 class AdminBlogController extends Controller
 {
@@ -12,7 +13,15 @@ class AdminBlogController extends Controller
      */
     public function form()
     {
-        \Log::debug('fuga');
         return view('admin_blog.form');
+    }
+
+    public function post()
+    {
+        $input = $request->input();
+
+        $article = Article::create($input);
+
+        return redirect('/admin/form')->with('message', '記事を保存しました');
     }
 }

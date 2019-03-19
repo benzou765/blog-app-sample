@@ -14,7 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/admin/form', 'AdminBlogController@form')->name('admin_form');
-Route::get('/hoge', function () { 
-    return 'hello world';
-});
+Route::get('/admin/form', 'AdminBlogController@form');
+Route::post('/admin/post', 'AdminBlogController@post');

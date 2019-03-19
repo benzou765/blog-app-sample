@@ -16,13 +16,14 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('post_date');
-            $table->string('category', 20)->charset('utf8mb4')->collation('utf8mb4_bin');
+            $table->tinyInteger('recommended');
             $table->string('title')->charset('utf8mb4');
             $table->text('body')->charset('utf8mb4');
             $table->softDeletes();
             $table->timestamps();
 
             $table->index('post_date', 'post_index');
+            $table->index('recommended', 'recom_index');
         });
     }
 
