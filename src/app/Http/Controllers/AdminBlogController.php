@@ -8,6 +8,8 @@ use App\Models\Article;
 
 class AdminBlogController extends Controller
 {
+    const NUM_PER_PAGE = 10;
+
     /**
      * 入力フォームのビューを表示
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -75,6 +77,16 @@ class AdminBlogController extends Controller
         var_dump($result);
         $message = $result ? '記事を削除しました' : '記事の削除に失敗しました';
 
-        return redirect('/admin/form')->with('message', $message);
+        return redirect('/admin/list')->with('message', $message);
+    }
+
+    /**
+     * 記事一覧の表示
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function list()
+    {
+        $list = Article::getArticleList(self::NUM_PER_PAGE);
+        return view('admin_blog.list', compact('list'));
     }
 }

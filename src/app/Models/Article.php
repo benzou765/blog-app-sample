@@ -36,4 +36,15 @@ class Article extends Model
         $post_date = new Carbon($value);
         $this->attributes['post_date'] = $post_date->format('Y-m-d');
     }
+
+    /**
+     * 記事リストの取得
+     * 
+     * @param int $numPerPage 1ページあたりの表示件数
+     * @return Illuminate\Pagination\LengthAwarePaginator
+     */
+    public static function getArticleList($numPerPage = 10)
+    {
+        return self::orderBy('id', 'desc')->paginate($numPerPage);
+    }
 }
