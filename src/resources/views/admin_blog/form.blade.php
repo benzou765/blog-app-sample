@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>ゲームブログ記事投稿フォーム</title>
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/ui/1.12.1/themes/base/jquery-ui.css') }}">
+    <script src="{{ asset('js/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('js/ui/1.12.1/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/datepicker-ja.js') }}"></script>
+    <script>
+        $(function() {
+            $("#datepicker").datepicker();
+        })
+    </script>
 </head>
 
 <body>
@@ -32,7 +41,7 @@
             <form method="POST" action="/admin/post">
                 <div class="form-group">
                     <label>日付</label>
-                    <input class="form-control" name="post_date" size="20" value="{{ $input['post_date']??'' }}" placeholder="日付を入力して下さい。">
+                    <input type="text" id="datepicker" name="post_date" size="20" value="{{ $input['post_date']??'' }}" placeholder="日付を入力して下さい。">
                 </div>
 
                 <div class="form-group">
@@ -63,11 +72,18 @@
                     <textarea cols="50" rows="15" name="body" placeholder="本文を入力してください。">{{ $input['body']??'' }}</textarea>
                 </div>
 
-                <input type="submit" class="btn btn-primary btn-sm" value="送信">
+                <input type="submit" class="btn btn-success btn-sm" value="保存">
                 <input type="hidden" name="id" value="{{ $id }}">
-                {{-- CSRFトークンが生成される --}}
                 {{ csrf_field() }}
             </form>
+            @if ($id)
+                <br>
+                <form action="/admin/delete" method="POST">
+                    <input type="submit" class="btn btn-danger btn-sm" value="削除">
+                    <input type="hidden" name=id value="{{ $id }}">
+                    {{ csrf_field() }}
+                </form>
+            @endif
         </div>
     </div>
 </div>

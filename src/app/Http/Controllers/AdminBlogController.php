@@ -32,7 +32,7 @@ class AdminBlogController extends Controller
     /**
      * 保存処理
      * @param AdminBlogRequest $request リクエスト
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function post(AdminBlogRequest $request)
     {
@@ -52,5 +52,29 @@ class AdminBlogController extends Controller
         $redirectPath = '/admin/form'.($id?'/'.$id:'');
 
         return redirect($redirectPath)->with('message', '記事を保存しました');
+    }
+
+    /**
+     * 削除処理
+     * @param AdminBlogRequest $request リクエスト
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(AdminBlogRequest $request)
+    {
+        $id = $request->input('id');
+        $result = 0;
+
+        \DB::beginTransaction();
+        try {
+            $result = Article::destroy($id);
+            \DB::commit();
+        } catch(\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        }
+        var_dump($result);
+        $message = $result ? '記事を削除しました' : '記事の削除に失敗しました';
+
+        return redirect('/admin/form')->with('message', $message);
     }
 }

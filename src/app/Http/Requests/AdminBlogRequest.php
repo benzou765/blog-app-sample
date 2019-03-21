@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class AdminBlogRequest extends FormRequest
 {
@@ -23,13 +24,21 @@ class AdminBlogRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $action = $this->getCurrentAction();
+
+        $rules['post'] = [
             'id' => 'integer|nullable',
             'post_date' => 'required|date',
             'recommended' => 'required|integer|between:1,5',
             'title' => 'required|string|max:255',
             'body' => 'required|string|max:10000'
         ];
+
+        $rules['delete'] = [
+            'id' => 'required|integer'
+        ];
+
+        return array_get($rules, $action, []);
     }
 
     /**
@@ -53,5 +62,15 @@ class AdminBlogRequest extends FormRequest
             'body.string' => '本文は文字列を入力してください',
             'body.max' => '本文は:max文字以内で入力してください',
         ];
+    }
+
+    /**
+     * ルート情報から現在のアクション名を返す
+     * @return string|null
+     */
+    private function getCurrentAction()
+    {
+        list($controller, $action) = explode('@', Route::currentRouteAction());
+        return $action;
     }
 }

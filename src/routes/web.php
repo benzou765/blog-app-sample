@@ -16,5 +16,5 @@ Route::get('/', function () {
 });
 Route::get('/admin/form', 'AdminBlogController@form');
 Route::post('/admin/post', 'AdminBlogController@post');
-
 Route::get('/admin/form/{id?}', 'AdminBlogController@form');
+Route::post('/admin/delete', 'AdminBlogController@delete');

@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class Article extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['post_date', 'recommended', 'title', 'body'];
 
     protected $dates = ['post_date', 'created_at', 'updated_at', 'deleted_at'];
