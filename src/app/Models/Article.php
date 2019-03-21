@@ -43,8 +43,45 @@ class Article extends Model
      * @param int $numPerPage 1ページあたりの表示件数
      * @return Illuminate\Pagination\LengthAwarePaginator
      */
-    public static function getArticleList($numPerPage = 10)
+    public static function getArticleList($numPerPage = 10, $year = 0, $month = 0)
     {
-        return self::orderBy('id', 'desc')->paginate($numPerPage);
+        $query = self::orderBy('id', 'desc');
+
+        // 期間の指定
+        if ($year) {
+            if ($month) {
+                $startDate = Carbon::createFromDate($year, $month, 1);
+                $endDate = Carbon::createFromDate($year, $month, 1)->addMonth();
+            } else {
+                $startDate = Carbon::createFromDate($year, 1, 1);
+                $endDate = Carbon::createFromDate($year, 1, 1)->addYear();
+            }
+            $query->where('post_date', '>=', $startDate->format('Y-m-d'))
+                ->where('post_date', '<', $endDate->format('Y-m-d'));
+        }
+
+        return $query->paginate($numPerPage);
+    }
+
+    /**
+     * 月別アーカイブの対象月リストの取得
+     * @return Illuminate\Database\Eloquent\Collection Object
+     */
+    public static function getMonthList()
+    {
+        // 各月の記事数を取得
+        $monthList = self::selectRaw('substring(post_date, 1, 7) AS year_and_month')
+            ->groupBy('year_and_month')
+            ->orderBy('year_and_month', 'desc')
+            ->get();
+
+        // 記事のある月のみ取得できるよう戻り値を作成
+        foreach($monthList as $value) {
+            list($year, $month) = explode('-', $value->year_and_month);
+            $value->year = (int)$year;
+            $value->month = (int)$month;
+            $value->year_month = sprintf("%04d年%02d月", $year, $month);
+        }
+        return $monthList;
     }
 }
