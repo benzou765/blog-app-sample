@@ -19,7 +19,7 @@
                 <br>
             @endif
 
-            {{-- バリデートメッセージの表示 --}}
+            {{-- エラーメッセージの表示 --}}
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -32,26 +32,40 @@
             <form method="POST" action="/admin/post">
                 <div class="form-group">
                     <label>日付</label>
-                    <input class="form-control" name="post_date" size="20" value="" placeholder="日付を入力して下さい。">
+                    <input class="form-control" name="post_date" size="20" value="{{ $input['post_date']??'' }}" placeholder="日付を入力して下さい。">
                 </div>
 
                 <div class="form-group">
                     <label>オススメ度</label>
-                    <input name="recommended" value="3" placeholder="オススメ度を入力して下さい。">
+                    <select name="recommended">
+                    {{ $recommended = $input['recommended']??3 }}
+                    @for($i = 1; $i <= 5; $i++)
+                        @if($recommended == $i)
+                            <option value="{{ $i }}" selected>
+                        @else
+                            <option value="{{ $i }}">
+                        @endif
+                        @for($j = 1; $j <= $i; $j++)
+                            ☆
+                        @endfor
+                        </option>
+                    @endfor
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>タイトル</label>
-                    <input name="title" value="" placeholder="タイトルを入力して下さい。">
+                    <input name="title" value="{{ $input['title']??'' }}" placeholder="タイトルを入力して下さい。">
                 </div>
 
                 <div class="form-group">
                     <label>本文</label>
-                    <textarea cols="50" rows="15" name="body" placeholder="本文を入力してください。"></textarea>
+                    <textarea cols="50" rows="15" name="body" placeholder="本文を入力してください。">{{ $input['body']??'' }}</textarea>
                 </div>
 
                 <input type="submit" class="btn btn-primary btn-sm" value="送信">
-                {{--CSRFトークンが生成される--}}
+                <input type="hidden" name="id" value="{{ $id }}">
+                {{-- CSRFトークンが生成される --}}
                 {{ csrf_field() }}
             </form>
         </div>

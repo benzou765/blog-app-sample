@@ -24,6 +24,7 @@ class AdminBlogRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'integer|nullable',
             'post_date' => 'required|date',
             'recommended' => 'required|integer|between:1,5',
             'title' => 'required|string|max:255',
