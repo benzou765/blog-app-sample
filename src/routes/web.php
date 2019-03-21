@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "FrontBlogController@index");
 
 Route::prefix('admin')->group(function() {
     Route::post('post', 'AdminBlogController@post');
