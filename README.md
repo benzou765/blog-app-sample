@@ -35,8 +35,25 @@ $ ./bin/exec.sh
 (必要なデータをダウンロードするため少し時間がかかります)
 # exit
 ```
-
 6. DBの初期化を行います。
+下記のようにdockerイメージにアクセスして、必要なデータを取得します。
+```
+$ ./bin/exec.sh
+アクセスするdocker machineを選択してください
+1) blog-app-sample_web_1
+2) blog-app-sample_app_1
+3) blog-app-sample_db_1
+#? 2
+# php artisan migrate
+Migration table created successfully.
+Migrating: 2014_10_12_000000_create_users_table
+Migrated:  2014_10_12_000000_create_users_table
+Migrating: 2014_10_12_100000_create_password_resets_table
+Migrated:  2014_10_12_100000_create_password_resets_table
+Migrating: 2019_03_17_074457_create_articles_table
+Migrated:  2019_03_17_074457_create_articles_table
+# exit
+
 
 ## 使い方
 起動方法
