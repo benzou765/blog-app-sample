@@ -17,35 +17,30 @@ https://git-scm.com/
 $ cd /path/to
 $ git clone https://github.com/benzou765/blog-app-sample.git
 ```
-4. dockerイメージを起動します。下記コマンドを実行します。
+4. Dockerイメージを起動します。下記コマンドを実行します。
 ```
 $ cd blog-app-sample/
 $ ./bin/build.sh
-(必要なデータをダウンロードするため少し時間がかかります)
+(データをダウンロードするため、時間がかかります)
 $ ./bin/up.sh
+(データをダウンロードするため、時間がかかります)
 ```
 5. phpで使用しているライブラリのインストールします。
-下記のようにdockerイメージにアクセスして、必要なデータを取得します。
+下記のようにDockerイメージにアクセスして、必要なデータを取得します。
 ```
 $ ./bin/exec.sh
-アクセスするdocker machineを選択してください
-1) blog-app-sample_web_1
-2) blog-app-sample_app_1
-3) blog-app-sample_db_1
+アクセスするDockerマシンを選択してください
+1) blog-app-sample_web_1      3) blog-app-sample_mailhog_1
+2) blog-app-sample_app_1      4) blog-app-sample_db_1
 #? 2
 # composer install
-(必要なデータをダウンロードするため少し時間がかかります)
+(データをダウンロードするため、時間がかかります)
 # exit
 ```
-6. DBの初期化を行います。
-下記のようにdockerイメージにアクセスして、必要なデータを取得します。
+6. つづいて、DBの初期化を行います。
+既に、blog-app-sample_app_1 にログインしているものとします。下記コマンドを実行して、DBを作成します。  
+（もし、ログインしていない場合は5.で示した bin/exec.sh を実行してログインしてください）
 ```
-$ ./bin/exec.sh
-アクセスするdocker machineを選択してください
-1) blog-app-sample_web_1
-2) blog-app-sample_app_1
-3) blog-app-sample_db_1
-#? 2
 # php artisan migrate
 Migration table created successfully.
 Migrating: 2014_10_12_000000_create_users_table
@@ -71,15 +66,13 @@ $ cd /path/to
 $ cd blog-app-sample/
 $ ./bin/down.sh
 ```
-
 2. blog-app-sampleをディレクトリごと削除します。
 ```
 $ cd ..
 $ rm -rf blog-app-sample
 ```
-
 3. （オプション）Dockerイメージを削除します。  
-**下記、コマンドを実行するとすべてのDockerイメージが消えます。わからない場合は実行しないでください。**
+**下記、コマンドを実行するとすべてのDockerイメージが消えます。**
 ```
 $ docker rmi `docker images -q`
 ```
