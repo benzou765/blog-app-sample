@@ -45,7 +45,7 @@ class Article extends Model
      */
     public static function getArticleList($numPerPage = 10, $year = 0, $month = 0)
     {
-        $query = self::orderBy('id', 'desc');
+        $query = self::orderBy('post_date', 'desc')->orderBy('id', 'desc');
 
         // 期間の指定
         if ($year) {

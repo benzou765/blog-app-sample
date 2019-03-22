@@ -23,7 +23,6 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
 
             $table->index('post_date', 'post_index');
-            $table->index('recommended', 'recom_index');
         });
     }
 
