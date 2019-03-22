@@ -19,3 +19,7 @@ Route::prefix('admin')->group(function() {
     Route::post('delete', 'AdminBlogController@delete');
     Route::get('list', 'AdminBlogController@list');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -9,9 +9,15 @@
 
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row mt-4">
+            <div class="col-md-10 col-md-offset-1">
             <h2><a href="/">ブログ</a></h2>
 
+            <div class="panel-footer text-right mb-2">
+                <a href="/admin/list">
+                    <span class="btn btn-primary btn-sm">記事作成</span>
+                </a>
+            </div>
             {{-- エラーメッセージ表示 --}}
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -22,6 +28,7 @@
                     </ul>
                 </div>
             @endif
+            </div>
         </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-1">
@@ -29,12 +36,19 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ $article->post_date_text }} {{ $article->title }}</h3>
-                        </div>
-                        <div class="panel-body">
-                            オススメ度：
-                            @for($i = 1; $i <= $article->recommended; $i++)
-                                ☆
-                            @endfor
+                            <div class="text-info small">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item mr-4">
+                                        作成者：{{ $article->user->name }}
+                                    </li>
+                                    <li class="list-inline-item">
+                                        オススメ度：
+                                        @for($i = 1; $i <= $article->recommended; $i++)
+                                            ☆
+                                        @endfor
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="panel-body">
                             {!! nl2br(e($article->body)) !!}

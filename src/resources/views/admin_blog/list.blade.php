@@ -8,9 +8,16 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+        <div class="row mt-4">
+            <div class="col-md-10 col-md-offset-2">
                 <h2>記事一覧</h2>
+                <div class="panel-footer text-right mb-2">
+                    ユーザー名：{{ $name }} 
+                    <form method="POST" action="/logout">
+                        <button class="btn btn-secondary btn-sm" type="submit" name="action">ログアウト</button>
+                        {{ csrf_field() }}
+                    </form>
+                </div>
                 @if (session('message'))
                     <div class="alert alert-success">
                         {{ session('message') }}

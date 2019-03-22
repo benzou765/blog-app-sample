@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use App\Http\Requests\AdminBlogRequest;
 use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 
 class AdminBlogController extends Controller
 {
     const NUM_PER_PAGE = 10;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * 入力フォームのビューを表示
@@ -39,6 +49,10 @@ class AdminBlogController extends Controller
     public function post(AdminBlogRequest $request)
     {
         $input = $request->input();
+        $input['user_id'] = $request->user()->id;
+
+
+        \Log::debug("log:".json_encode($input));
 
         $id = array_get($input, 'id');
 
@@ -51,7 +65,8 @@ class AdminBlogController extends Controller
             throw $e;
         }
 
-        $redirectPath = '/admin/form'.($id?'/'.$id:'');
+//        $redirectPath = '/admin/form'.($id?'/'.$id:'');
+        $redirectPath = '/admin/list';
 
         return redirect($redirectPath)->with('message', '記事を保存しました');
     }
@@ -82,11 +97,13 @@ class AdminBlogController extends Controller
 
     /**
      * 記事一覧の表示
+     * @param AdminBlogRequest $request リクエスト
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list()
+    public function list(AdminBlogRequest $request)
     {
+        $name = $request->user()->name;
         $list = Article::getArticleList(self::NUM_PER_PAGE);
-        return view('admin_blog.list', compact('list'));
+        return view('admin_blog.list', compact('list', 'name'));
     }
 }

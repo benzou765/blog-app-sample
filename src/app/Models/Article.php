@@ -10,7 +10,7 @@ class Article extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['post_date', 'recommended', 'title', 'body'];
+    protected $fillable = ['post_date', 'user_id', 'recommended', 'title', 'body'];
 
     protected $dates = ['post_date', 'created_at', 'updated_at', 'deleted_at'];
 
@@ -83,5 +83,14 @@ class Article extends Model
             $value->year_month = sprintf("%04d年%02d月", $year, $month);
         }
         return $monthList;
+    }
+
+    /**
+     * 記事をを作成したユーザーを取得
+     * @return App\Models\User
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 }
