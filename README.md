@@ -3,6 +3,7 @@
 このアプリケーションは、LEMP環境をDockerで構築し、Laravelで作成されています。  
 MacOSで開発、動作確認を行っており、Windowsでの検証をしておりませんので、
 実行する際にはOSに注意してください。  
+また、ブラウザはChromeで動作検証を行っています。Chrome以外は正しく表示されない可能性があります。
 
 ## インストール方法
 1. Dockerをマシンにインストールします。
@@ -13,7 +14,7 @@ https://www.docker.com/
 https://git-scm.com/
 3. アプリをローカル環境へダウンロードします。作業スペースとなるディレクトリに移動した後、下記コマンドを実行します。
 ```
-$ cd /path/to/dev
+$ cd /path/to
 $ git clone https://github.com/benzou765/blog-app-sample.git
 ```
 4. dockerイメージを起動します。下記コマンドを実行します。
@@ -58,12 +59,15 @@ Migrated:  2019_03_22_011148_add_column_articles_table
 # exit
 ```
 ## 使い方
-
+ブラウザを起動して、localhost:8080 にアクセスします。  
+ブログの閲覧、ブログ作成用アカウントの登録、ブログの作成等が行えます。  
+なお、アカウントのパスワードを忘れた場合、メールアドレスにてパスワードリセットを行えますが、
+検証用メールサーバに送信しているため、メールは localhost:8025 へアクセスして確認してください。
 
 ## アンインストール方法
 1. 作業スペースとなるディレクトリに移動し、Dockerマシンを終了します。
 ```
-$ cd /path/to/dev
+$ cd /path/to
 $ cd blog-app-sample/
 $ ./bin/down.sh
 ```
@@ -98,6 +102,6 @@ https://qiita.com/bzy/items/f251d47cba836a3a92df
 https://qiita.com/yumgoo17/items/e40e02b3fc3275bd7f23  
 * mysqlの設定で参考にしたサイト  
 https://qiita.com/deco/items/bfa125ae45c16811536a  
-* メールサーバ構築で参考にしたサイト
-https://qiita.com/kinoleaf/items/0b0002aa03993e58e2f0
+* メールサーバ構築で参考にしたサイト  
+https://qiita.com/kobatei/items/1b8b0ca5e8737235dccd
 その他、各種ツールの公式サイト  
