@@ -1,6 +1,6 @@
 # laravel5.8でブログを作成した例
 
-このアプリケーションは、LEMP環境をdockerで構築し、laravelで作成されています。  
+このアプリケーションは、LEMP環境をDockerで構築し、Laravelで作成されています。  
 MacOSで開発、動作確認を行っており、Windowsでの検証をしておりませんので、
 実行する際にはOSに注意してください。  
 
@@ -11,8 +11,9 @@ https://www.docker.com/
 2. Gitをインストールします。
 インストールファイル、インストール手順等は公式サイトを確認してください。  
 https://git-scm.com/
-3. アプリをローカル環境へダウンロードします。作業スペースとなるディレクトリに移動した後、下記コマンドを実行します
+3. アプリをローカル環境へダウンロードします。作業スペースとなるディレクトリに移動した後、下記コマンドを実行します。
 ```
+$ cd /path/to/dev
 $ git clone https://github.com/benzou765/blog-app-sample.git
 ```
 4. dockerイメージを起動します。下記コマンドを実行します。
@@ -52,25 +53,40 @@ Migrating: 2014_10_12_100000_create_password_resets_table
 Migrated:  2014_10_12_100000_create_password_resets_table
 Migrating: 2019_03_17_074457_create_articles_table
 Migrated:  2019_03_17_074457_create_articles_table
+Migrating: 2019_03_22_011148_add_column_articles_table
+Migrated:  2019_03_22_011148_add_column_articles_table
 # exit
-
-
+```
 ## 使い方
-起動方法
+
+
+## アンインストール方法
+1. 作業スペースとなるディレクトリに移動し、Dockerマシンを終了します。
 ```
-$ ./bin/up.sh
+$ cd /path/to/dev
+$ cd blog-app-sample/
+$ ./bin/down.sh
 ```
-Dockerfileを修正した場合は先に以下のコマンドを実行
+
+2. blog-app-sampleをディレクトリごと削除します。
 ```
-$ ./bin/build.sh
+$ cd ..
+$ rm -rf blog-app-sample
+```
+
+3. （オプション）Dockerイメージを削除します。  
+`#ff0000`下記、コマンドを実行するとすべてのDockerイメージが消えます。わからない場合は実行しないでください。
+```
+$ docker rmi `docker images -q`
 ```
 
 ## 便利コマンド
-全コンテナ一括削除
+アプリケーション作成時のメモです。
+* 全コンテナ一括削除
 ```
 $ docker rm -f `docker ps -a -q`
 ```
-未使用イメージ
+* 未使用イメージ
 ```
 $ docker rmi `docker images -q`
 ```
@@ -82,4 +98,6 @@ https://qiita.com/bzy/items/f251d47cba836a3a92df
 https://qiita.com/yumgoo17/items/e40e02b3fc3275bd7f23  
 * mysqlの設定で参考にしたサイト  
 https://qiita.com/deco/items/bfa125ae45c16811536a  
-各種公式サイト  
+* メールサーバ構築で参考にしたサイト
+https://qiita.com/kinoleaf/items/0b0002aa03993e58e2f0
+その他、各種ツールの公式サイト  
