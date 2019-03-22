@@ -10,6 +10,7 @@ services:
       - ./src/:/var/www/html
     links:
       - db
+      - mailhog
   web:
     build: ./docker/nginx
     ports:
@@ -36,3 +37,8 @@ services:
     volumes:
       - ./data/:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025

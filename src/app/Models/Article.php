@@ -41,6 +41,8 @@ class Article extends Model
      * 記事リストの取得
      * 
      * @param int $numPerPage 1ページあたりの表示件数
+     * @param int $year 取得したい年
+     * @param int $month 取得したい月
      * @return Illuminate\Pagination\LengthAwarePaginator
      */
     public static function getArticleList($numPerPage = 10, $year = 0, $month = 0)
@@ -59,6 +61,20 @@ class Article extends Model
             $query->where('post_date', '>=', $startDate->format('Y-m-d'))
                 ->where('post_date', '<', $endDate->format('Y-m-d'));
         }
+
+        return $query->paginate($numPerPage);
+    }
+
+    /**
+     * 指定ユーザーの記事リストの取得
+     * 
+     * @param int $userId ユーザーID
+     * @param int $numPerPage 1ページあたりの表示件数
+     * @return Illuminate\Pagination\LengthAwarePaginator
+     */
+    public static function getArticleListByUser($userId, $numPerPage = 10)
+    {
+        $query = self::where('user_id', $userId)->orderBy('post_date', 'desc')->orderBy('id', 'desc');
 
         return $query->paginate($numPerPage);
     }

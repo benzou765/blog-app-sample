@@ -103,7 +103,8 @@ class AdminBlogController extends Controller
     public function list(AdminBlogRequest $request)
     {
         $name = $request->user()->name;
-        $list = Article::getArticleList(self::NUM_PER_PAGE);
+        $userId = $request->user()->id;
+        $list = Article::getArticleListByUser($userId, self::NUM_PER_PAGE);
         return view('admin_blog.list', compact('list', 'name'));
     }
 }

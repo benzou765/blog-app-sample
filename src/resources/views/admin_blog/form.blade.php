@@ -38,7 +38,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="POST" action="/admin/post">
+            <form method="POST" action="/admin/post" autocomplete="off">
                 <div class="form-group">
                     <label>日付</label>
                     <input type="text" id="datepicker" name="post_date" size="20" value="{{ $input['post_date']??'' }}" placeholder="日付を入力して下さい。">
